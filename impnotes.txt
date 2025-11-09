@@ -1,0 +1,15 @@
+# The following is the list of exit codes in Node.js along with its descriptions:
+#     Exit Code 0: Node.js normally ends with a status code of 0 whenever there are no more open async operations and the code doesn't produce any uncaught exceptions.
+#     Exit Code 1, Uncaught Fatal Exception: If an uncaught exception occurs and it is not resolved by a domain or a "uncaughtException" event handler, Node.js exits with an exit code of 1.
+#     Exit Code 2: The exit code 2 is reserved by Bash for abuse of built-in features.
+#     Exit Code 3, Internal JavaScript Parse Error: When internal code cannot be effectively interpreted, this exit code might be utilised in development. This is highly uncommon and often only occurs while Node.js is being developed.
+#     Exit Code 4, Internal JavaScript Evaluation Failure: It is also applied in situations where the JavaScript code fails to return the function value during development.
+#     Exit Code 5, Fatal Error: When a fatal, unrecoverable error occurred in V8, this exit code is utilised. Usually, stderr will produce a message with the prefix FATAL ERROR.
+#     Exit Code 6, Non-function Internal Exception Handler: When an internal fatal exception handler function is set to a non-function and unable to be invoked, it is helpful.
+#     Exit Code 7, Internal Exception Handler Run-Time Failure: This error code is used when the internal fatal exception handler code itself issued an error when attempting to handle the uncaught exception. This may occur, for instance, if a domain.on('error') handler or a "uncaughtException" returns an error.
+#     Exit Code 8: Exit code 8 in earlier versions of Node.js was sometimes used to denote an uncaught error.
+#     Exit Code 9, Invalid Argument: This is employed when an unspecified option was given or when a value-required option was given without one..
+#     Exit Code 10, Internal JavaScript Run-Time Failure: When the bootstrapping function was invoked, the JavaScript source code internal to Node.js's bootstrapping procedure threw an error.
+#     Exit Code 12, Invalid Debug Argument: The ports specified were either unavailable or invalid, yet the —debug, —inspect, and/or —debug-brk options were set.
+#     Exit Code > 128, Signal Exits: Node.js's exit code is 128 plus the signal code's value if it gets a fatal signal like SIGKILL or SIGHUP. This is a common Unix practice since signal exits set the high-order bit before containing the signal code's value and exit codes are often specified as 7-bit integers.
+#     https://www.geeksforgeeks.org/node-js/node-js-process-complete-reference/
