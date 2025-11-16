@@ -13,3 +13,13 @@
 #     Exit Code 12, Invalid Debug Argument: The ports specified were either unavailable or invalid, yet the —debug, —inspect, and/or —debug-brk options were set.
 #     Exit Code > 128, Signal Exits: Node.js's exit code is 128 plus the signal code's value if it gets a fatal signal like SIGKILL or SIGHUP. This is a common Unix practice since signal exits set the high-order bit before containing the signal code's value and exit codes are often specified as 7-bit integers.
 #     https://www.geeksforgeeks.org/node-js/node-js-process-complete-reference/
+
+
+
+#   bcrypt module eritten in c++ lang 30% faster than bcryptjs which is written in pure js lang with no depandancies
+#   jwt use for json web token
+#   Mongoose hooks, also known as middleware,
+#   are functions that execute before or after specific database operations within the Mongoose library,
+#   which is used for interacting with MongoDB in Node.js applications.
+
+#   jwt [A JWT (JSON Web Token) is a specific type of bearer token]

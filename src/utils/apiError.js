@@ -7,7 +7,7 @@ class ApiError {
     ){
        super(message)
        this.statusCode = statusCode;
-       this.data = null;//assingment
+       this.data = null;//no data shows in the apiError trhough data variable
        this.message = message;
        this.success = false;
        this.errors = errors
