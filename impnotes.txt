@@ -23,3 +23,7 @@
 #   which is used for interacting with MongoDB in Node.js applications.
 
 #   jwt [A JWT (JSON Web Token) is a specific type of bearer token]
+
+
+#   multer
+#   The main use of Multer is to handle file uploads from an HTML form that includes a file input field

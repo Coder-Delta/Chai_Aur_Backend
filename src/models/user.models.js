@@ -57,7 +57,7 @@ userSchema.pre("save",async function (next) {
 }
 )//in here we use the function not arrow func because we know arrow function doesn't has this keyword contex nahi pata hoga
 
-//coustom methods(userSchema.methods.methodName)
+//coustom methods(userSchema.methods.methodName)for mongoose
 userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password,this.password)
 }
