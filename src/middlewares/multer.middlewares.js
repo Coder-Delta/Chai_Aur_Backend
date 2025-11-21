@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.originalname); // this code save the file in unique name assingnment
+    cb(null,uniqueSuffix + "-" + file.originalname); // this code save the file in unique name assingnment
   },
 });
 

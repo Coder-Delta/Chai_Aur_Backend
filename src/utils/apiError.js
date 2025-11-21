@@ -1,17 +1,17 @@
-class ApiError {
+class ApiError extends Error{
     constructor(
         statusCode,
         message = "Something went wrong",
         errors = [],
         stack = ""
     ){
-       super(message)
-       this.statusCode = statusCode;
-       this.data = null;//no data shows in the apiError trhough data variable
-       this.message = message;
-       this.success = false;
-       this.errors = errors
-
+        super(message);
+        this.statusCode = statusCode;
+        this.data = null;//no data shows in the apiError trhough data variable
+        this.message = message;
+        this.success = false;
+        this.errors = errors
+        
        if(stack){
         this.stack = stack
        }
