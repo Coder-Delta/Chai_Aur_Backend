@@ -45,3 +45,11 @@
 //         throw error
 //     }
 // })()
+
+
+
+//to register user (steps)
+//give the form 
+//user give the meatadata or payload
+//img stores on cloudinary using post req
+//img delete using delete method

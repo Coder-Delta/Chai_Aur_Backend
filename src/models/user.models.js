@@ -52,7 +52,7 @@ const userSchema = new Schema(
 
 userSchema.pre("save",async function (next) {
   if (!this.isModified("password")) return next();
-  this.password = bcrypt.hash(this.password,10)
+  this.password = await bcrypt.hash(this.password,10)
   next()
 }
 )//in here we use the function not arrow func because we know arrow function doesn't has this keyword contex nahi pata hoga
