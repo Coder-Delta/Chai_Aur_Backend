@@ -4,6 +4,22 @@ import { User } from "../models/user.models.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import{ApiResponse} from "../utils/ApiResponse.js"
 
+const genaretAccessTokenandRefereshToken = async (userId) => {
+    try {
+        const user = await User.findById(userId)
+        const accessToken = user.genaretAccessToken()
+        const refereshToken = user.genaretRefreshToken()
+
+        user.refereshToken = refereshToken //new field add on that user's account on database not others
+        await user.save({validateBeforeSave: false})
+
+        return {accessToken,refereshToken}
+
+    } catch (error) {
+        throw new ApiError(500, "Something went wrong while genarating access and referesh token")
+    }
+}
+
 const registerUser = asyncHandler(async (req, res) => {//4 parameter err, req, res, next
     // res.status(200).json({
     //     message: "Ok"
@@ -78,4 +94,95 @@ const registerUser = asyncHandler(async (req, res) => {//4 parameter err, req, r
     )
 })
 
-export {registerUser}//import me me iss name se hi import kar sakta hu
+const loginUser = asyncHandler(async(req,res) => {
+    //req body -> data
+    //username or email
+    //find the user
+    //password cheak
+    //access nad refresh token
+    //send cookies
+
+    const {username , email , password} = req.body
+
+    if ( !username && !email ) {//or use (!(username || email))
+        throw new ApiError(400, " Username or Email Is Required ")
+    }
+
+    const user = await User.findOne(
+        $or[{username},{email}]
+    )
+
+    if (!user) {
+        throw new ApiError (404 ,"User doesn't exist")
+    }
+    
+    const isPasswordCorrect =await user.isPasswordCorrect(password)
+
+    if (!isPasswordCorrect) {
+        throw new ApiError (401 ,"Invalid User Credentials")
+    }
+
+    const {accessToken, refereshToken} = await genaretAccessTokenandRefereshToken(user._id)
+
+
+    //when send data to user we can use two ways 1) call db again 2) update the user obj with accessToken and refereshToken
+    //we can use 2nd option if db is expensive then we can update the obj.
+    const loggedInUser = await User.findById(user._id).select("-password -refreshToken")//.select string me jo kuch nahi chahata hu who likh do
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+    return res
+    .status(200)
+    .cookie("accessToken", accessToken ,options)
+    .cookie("refereshToken", refereshToken, options)
+    .json(
+        new ApiResponse(
+            200,
+            {
+                user: loggedInUser, accessToken, loggedInUser
+            },
+            "User loggend in successfully"
+        )
+    )
+
+})
+
+const logoutUser = asyncHandler(async(req, res) => {
+    //clear the cookie from the user db and the db
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            refereshToken: undefined
+        },
+        {
+            new: true
+        },
+        
+    )
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+    return res
+    .status(200)
+    .clearCookie("accessToken",options)
+    .clearCookie("refereshToken",options)
+    .json(
+        new ApiResponse(
+            200,
+            {},
+            "User loggedout successfully"
+        )
+    )
+})
+
+export {
+    registerUser,
+    loginUser,
+    logoutUser
+}//import me me iss name se hi import kar sakta hu

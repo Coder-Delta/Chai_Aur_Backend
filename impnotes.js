@@ -14,6 +14,12 @@
 //      Exit Code > 128, Signal Exits: Node.js's exit code is 128 plus the signal code's value if it gets a fatal signal like SIGKILL or SIGHUP. This is a common Unix practice since signal exits set the high-order bit before containing the signal code's value and exit codes are often specified as 7-bit integers.
 //      https://www.geeksforgeeks.org/node-js/node-js-process-complete-reference/
 
+
+
+//  The throw statement throws a user-defined exception
+
+
+
 //    bcrypt module eritten in c++ lang 30% faster than bcryptjs which is written in pure js lang with no depandancies
 //    jwt use for json web token
 //    Mongoose hooks, also known as middleware,
@@ -53,3 +59,7 @@
 //user give the meatadata or payload
 //img stores on cloudinary using post req
 //img delete using delete method
+
+//JWT token
+//access token thors sa short time period ke liya hota hai
+//refreh token long period ke liya hota hai
