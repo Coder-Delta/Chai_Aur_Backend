@@ -47,7 +47,7 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
   },
-  { timestaps: true }
+  { timestamps: true } // <<< fixed timestaps
 );
 
 userSchema.pre("save",async function (next) {
@@ -63,28 +63,32 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 }
 
 userSchema.methods.genaretAccessToken = function(){
-  return jwt.sign({
-    _id : this._id,
-    email: this.email,
-    username: this.username,
-    fullName: this.fullName,
-  }),
-  process.env.ACCESS_TOKEN_SECRET,
-  {
-    expiryIn: process.env.ACCESS_TOKEN_EXPIRY
-  }
+  return jwt.sign(
+    {
+      _id : this._id,
+      email: this.email,
+      username: this.username,
+      fullName: this.fullName,
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+    }
+  )
 }
 
 userSchema.methods.genaretRefreshToken = function(){
-  return jwt.sign({
-    _id : this._id,
-  }),
-  process.env.REFRESH_TOKEN_SECRET,
-  {
-    expiryIn: process.env.REFRESH_TOKEN_EXPIRY
-  }
+  return jwt.sign(
+    {
+      _id : this._id,
+    },
+    process.env.REFRESH_TOKEN_SECRET,
+    {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+    }
+  )
 }
 
-userSchema.methods.genaretRefreshToken = async function(){}
+
 
 export const User = mongoose.model("User", userSchema); //mongodb me users name par save hoga

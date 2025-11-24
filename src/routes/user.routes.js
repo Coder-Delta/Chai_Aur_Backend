@@ -24,7 +24,6 @@ router.route("/register").post(
 router.route("/login").post(loginUser)
 
 //secured routes
-
-router.route("logout").post(verifyJWT,logoutUser)//verify is a middleware
+router.route("/logout").post(verifyJWT,logoutUser)//verify is a middleware
 
 export default router //jasa name chaihe use name se import kar sakta hu agar default hai to

@@ -1,188 +1,192 @@
-import{asyncHandler} from "../utils/asyncHandler.js"
-import {ApiError} from"../utils/apiError.js"
-import { User } from "../models/user.models.js"
-import {uploadOnCloudinary} from "../utils/cloudinary.js"
-import{ApiResponse} from "../utils/ApiResponse.js"
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { ApiError } from "../utils/apiError.js";
+import { User } from "../models/user.models.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 
-const genaretAccessTokenandRefereshToken = async (userId) => {
-    try {
-        const user = await User.findById(userId)
-        const accessToken = user.genaretAccessToken()
-        const refereshToken = user.genaretRefreshToken()
+const generateAccessAndRefereshTokens = async (userId) => {
+  try {
+    const user = await User.findById(userId);
+    const accessToken = user.genaretAccessToken();
+    const refreshToken = user.genaretRefreshToken();
 
-        user.refereshToken = refereshToken //new field add on that user's account on database not others
-        await user.save({validateBeforeSave: false})
+    user.refreshToken = refreshToken;
+    await user.save({ validateBeforeSave: false });
 
-        return {accessToken,refereshToken}
+    return { accessToken, refreshToken };
+  } catch (error) {
+    throw new ApiError(
+      500,
+      "Something went wrong while generating referesh and access token"
+    );
+  }
+};
 
-    } catch (error) {
-        throw new ApiError(500, "Something went wrong while genarating access and referesh token")
-    }
-}
+const registerUser = asyncHandler(async (req, res) => {
+  //4 parameter err, req, res, next
+  // res.status(200).json({
+  //     message: "Ok"
+  // })
 
-const registerUser = asyncHandler(async (req, res) => {//4 parameter err, req, res, next
-    // res.status(200).json({
-    //     message: "Ok"
-    // })
-    
-    //Algorithm for registration
-    
-    //get user details from frontend
-    //validation - not empty
-    //cheak if user already exists:username,email
-    //cheak for images,cheak for avatar
-    //create user object -create entry the data in db
-    //remove password and refresh token field from the response
-    //cheak for user creation 
-    //return result
+  //Algorithm for registration
 
-    const {fullName,email,username,password} = req.body
-    // console.log("email:", email);
+  //get user details from frontend
+  //validation - not empty
+  //cheak if user already exists:username,email
+  //cheak for images,cheak for avatar
+  //create user object -create entry the data in db
+  //remove password and refresh token field from the response
+  //cheak for user creation
+  //return result
 
-    if (
-        [fullName,email,username,password].some((field) => field?.trim() === "")
-    ) {
-        throw new ApiError(400,"All fileds are required.")
-    }
+  const { fullName, email, username, password } = req.body;
+  // console.log("email:", email);
 
-    const existedUser = await User.findOne({
-        $or: [{ username },{ email }]
-    })
-    if (existedUser) {
-        throw new ApiError (409, "An User Allready Exist With The Same Username Or Email")
-    }
+  if (
+    [fullName, email, username, password].some((field) => field?.trim() === "")
+  ) {
+    throw new ApiError(400, "All fileds are required.");
+  }
 
-    const avatarLocalPath = req.files?.avatar[0]?.path;
-    // const coverImageLocalPath = req.files?.coverImage[0]?.path;
-    let coverImageLocalPath;
-    if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
-        coverImageLocalPath = req.files.coverImage[0].path        
-    }
+  const existedUser = await User.findOne({
+    $or: [{ username }, { email }],
+  });
+  if (existedUser) {
+    throw new ApiError(
+      409,
+      "An User Allready Exist With The Same Username Or Email"
+    );
+  }
 
+  const avatarLocalPath = req.files?.avatar[0]?.path;
+  // const coverImageLocalPath = req.files?.coverImage[0]?.path;
+  let coverImageLocalPath;
+  if (
+    req.files &&
+    Array.isArray(req.files.coverImage) &&
+    req.files.coverImage.length > 0
+  ) {
+    coverImageLocalPath = req.files.coverImage[0].path;
+  }
 
-    if (!avatarLocalPath) {
-        throw new ApiError ( 400 ,"Avatar file is required")
-    }
+  if (!avatarLocalPath) {
+    throw new ApiError(400, "Avatar file is required");
+  }
 
-    //upload the img on cloudinary
-    const avatar = await uploadOnCloudinary(avatarLocalPath);
-    const coverImage = await uploadOnCloudinary(coverImageLocalPath)
+  //upload the img on cloudinary
+  const avatar = await uploadOnCloudinary(avatarLocalPath);
+  const coverImage = await uploadOnCloudinary(coverImageLocalPath);
 
-    if (!avatar) {
-        throw new ApiError ( 400 ,"Avatar uploading was unsuccesfull")
-    }
+  if (!avatar) {
+    throw new ApiError(400, "Avatar uploading was unsuccesfull");
+  }
 
-    const user = await User.create({
-        fullName,
-        avatar : avatar.url,
-        coverImage : coverImage?.url || "",
-        email,
-        password,
-        username: username
-    })
+  const user = await User.create({
+    fullName,
+    avatar: avatar.url,
+    coverImage: coverImage?.url || "",
+    email,
+    password,
+    username: username,
+  });
 
-    const createdUser = await User.findById(user._id).select(
-        "-password -refreshToken"
-    )//remove unwanted fields
+  const createdUser = await User.findById(user._id).select(
+    "-password -refreshToken"
+  ); //remove unwanted fields
 
-    if (!createdUser) {
-        throw new ApiError(500 ,"Something went wrong while registering the user")
-    }
+  if (!createdUser) {
+    throw new ApiError(500, "Something went wrong while registering the user");
+  }
 
-    return res.status(201).json(
-        new ApiResponse (200, createdUser,"User Registered successfully")
-    )
-})
+  return res
+    .status(201)
+    .json(new ApiResponse(200, createdUser, "User Registered successfully"));
+});
 
-const loginUser = asyncHandler(async(req,res) => {
-    //req body -> data
-    //username or email
-    //find the user
-    //password cheak
-    //access nad refresh token
-    //send cookies
+const loginUser = asyncHandler(async (req, res) => {
+  //req body -> data
+  //username or email
+  //find the user
+  //password cheak
+  //access nad refresh token
+  //send cookies
 
-    const {username , email , password} = req.body
+  const { email, username, password } = req.body;
+  console.log(email);
 
-    if ( !username && !email ) {//or use (!(username || email))
-        throw new ApiError(400, " Username or Email Is Required ")
-    }
+  if (!username && !email) {
+    //or use (!(username || email))
+    throw new ApiError(400, " Username or Email Is Required ");
+  }
 
-    const user = await User.findOne(
-        $or[{username},{email}]
-    )
+  const user = await User.findOne({
+    $or: [{ username }, { email }],
+  });
 
-    if (!user) {
-        throw new ApiError (404 ,"User doesn't exist")
-    }
-    
-    const isPasswordCorrect =await user.isPasswordCorrect(password)
+  if (!user) {
+    throw new ApiError(404, "User doesn't exist");
+  }
 
-    if (!isPasswordCorrect) {
-        throw new ApiError (401 ,"Invalid User Credentials")
-    }
+  const isPasswordCorrect = await user.isPasswordCorrect(password);
 
-    const {accessToken, refereshToken} = await genaretAccessTokenandRefereshToken(user._id)
+  if (!isPasswordCorrect) {
+    throw new ApiError(401, "Invalid User Credentials");
+  }
 
+  const { accessToken, refreshToken } = await generateAccessAndRefereshTokens(
+    user._id
+  );
 
-    //when send data to user we can use two ways 1) call db again 2) update the user obj with accessToken and refereshToken
-    //we can use 2nd option if db is expensive then we can update the obj.
-    const loggedInUser = await User.findById(user._id).select("-password -refreshToken")//.select string me jo kuch nahi chahata hu who likh do
+  //when send data to user we can use two ways 1) call db again 2) update the user obj with accessToken and refereshToken
+  //we can use 2nd option if db is expensive then we can update the obj.
+  const loggedInUser = await User.findById(user._id).select(
+    "-password -refreshToken"
+  ); //.select string me jo kuch nahi chahata hu who likh do
 
-    const options = {
-        httpOnly: true,
-        secure: true
-    }
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
 
-    return res
+  return res
     .status(200)
-    .cookie("accessToken", accessToken ,options)
-    .cookie("refereshToken", refereshToken, options)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refereshToken", refreshToken, options)
     .json(
-        new ApiResponse(
-            200,
-            {
-                user: loggedInUser, accessToken, loggedInUser
-            },
-            "User loggend in successfully"
-        )
-    )
-
-})
-
-const logoutUser = asyncHandler(async(req, res) => {
-    //clear the cookie from the user db and the db
-    await User.findByIdAndUpdate(
-        req.user._id,
+      new ApiResponse(
+        200,
         {
-            refereshToken: undefined
+          user: loggedInUser,
+          accessToken,
+          loggedInUser,
         },
-        {
-            new: true
-        },
-        
-    )
+        "User loggend in successfully"
+      )
+    );
+});
 
-    const options = {
-        httpOnly: true,
-        secure: true
+const logoutUser = asyncHandler(async (req, res) => {
+  //clear the cookie from the user db and the db
+  await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      refereshToken: undefined,
+    },
+    {
+      new: true,
     }
+  );
 
-    return res
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  return res
     .status(200)
-    .clearCookie("accessToken",options)
-    .clearCookie("refereshToken",options)
-    .json(
-        new ApiResponse(
-            200,
-            {},
-            "User loggedout successfully"
-        )
-    )
-})
+    .clearCookie("accessToken", options)
+    .clearCookie("refereshToken", options)
+    .json(new ApiResponse(200, {}, "User loggedout successfully"));
+});
 
-export {
-    registerUser,
-    loginUser,
-    logoutUser
-}//import me me iss name se hi import kar sakta hu
+export { registerUser, loginUser, logoutUser }; //import me me iss name se hi import kar sakta hu
