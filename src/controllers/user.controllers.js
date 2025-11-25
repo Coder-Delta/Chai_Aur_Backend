@@ -270,7 +270,7 @@ const updateAccountDetails = asyncHandler(async(req,res) => {
     throw new ApiError(new ApiResponse(404, {},"All field are requird"))
   }
 
-  const user = User.findByIdAndUpdate(
+  const user = await User.findByIdAndUpdate(
     req.user?._id,
     {
       $set:{
@@ -315,7 +315,7 @@ const updateUserAvatar = asyncHandler(async(req, res) => {
 
 });
 
-  const updateUserCoverImage = asyncHandler(async(req, res) => {
+const updateUserCoverImage = asyncHandler(async(req, res) => {
   const coverImageLocalPath = req.file?.path
 
   if (!coverImageLocalPath) {
@@ -344,6 +344,86 @@ const updateUserAvatar = asyncHandler(async(req, res) => {
 
 });
 
+//DELETE OLD IMAGE - ASSINGMENT
+//CHENNEL SE SUBSCRIBER
+//SUBSCRIBER SE CHANNEL
+
+
+//Aggregation Pipeline
+const getUserChannelProfile = asyncHandler(async(req,res) => {
+  const {username} = req.params
+  
+  if (!username?.trim()) {
+    throw new ApiError(404 , "Username is required")
+  }
+
+  const channel = await User.aggregate([
+    {
+      $match:{
+        username :username?.toLowerCase()
+      }
+    },
+    {
+      $lookup:{
+        from:"subscriptions",
+        localField: "_id",
+        foreignField: "channel",
+        as: "subscribers"
+      }
+    },
+    {
+      $lookup:{
+        from:"subscriptions",
+        localField: "_id",
+        foreignField: "subscriber",
+        as: "subscribedTo"
+      }
+    },
+    {
+      $addFields:{
+        subscribersCount:{
+          $size: "$subscribers",
+          channelsSubscribedToCount:{
+            $size : "$subscribedTos"
+          },
+          isSubscribed:{
+            $cond:{
+              if:{$in:[req.user?._id , "$subscribers.subscriber"]},
+              then: true,
+              else: false
+            }
+          }
+        }
+      }
+    },
+    {
+      $project: {
+        fullName: 1,
+        username: 1,
+        subscribersCount: 1,
+        channelsSubscribedToCount: 1,
+        isSubscribed: 1,
+        avatar: 1,
+        coverImage: 1,
+        email: 1,
+      }
+    }
+  ])
+  if (!channel.length) {
+    throw new ApiError(403, "Channel doesn't exist")
+  }
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200, channel[0],"User channel feached successfully")
+  )
+})
+
+// console.log(channel)//task
+
+
+
 export { 
   registerUser, 
   loginUser, 
@@ -353,5 +433,6 @@ export {
   getCurrentUser,
   updateAccountDetails,
   updateUserAvatar,
-  updateUserCoverImage
+  updateUserCoverImage,
+  getUserChannelProfile
 }; //import me me iss name se hi import kar sakta hu
