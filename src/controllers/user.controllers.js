@@ -4,6 +4,7 @@ import { User } from "../models/user.models.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
+import mongoose, { mongo } from "mongoose";
 
 
 const generateAccessAndRefereshTokens = async (userId) => {
@@ -410,7 +411,7 @@ const getUserChannelProfile = asyncHandler(async(req,res) => {
     }
   ])
   if (!channel.length) {
-    throw new ApiError(403, "Channel doesn't exist")
+    throw new ApiError(404, "Channel doesn't exist")
   }
 
   return res
@@ -423,6 +424,57 @@ const getUserChannelProfile = asyncHandler(async(req,res) => {
 // console.log(channel)//task
 
 
+const getWatchHistory = asyncHandler(async(req, res) => {
+  const user = await User.aggregate([
+    {
+      $match:{
+        _id : new mongoose.Types.ObjectId(req.user._id)//behind the scene mongoose convert the string _id to mongodb ids 
+        // but here aggregation pipeline mongodb work not moongoose that's why i created a new instansace with help of mongoose
+      }
+    },
+    {
+      $lookup: {
+        from: "videos",
+        localField: "watchHistory",
+        foreignField: "_id",
+        as: "watchHistory",
+        pipeline: [
+          {
+            $lookup:{
+              from: "users",
+              localField:"owner",
+              foreignField: "_id",
+              as:"owner",
+              pipeline: [
+                {
+                  $project:{
+                    fullName: 1,
+                    username: 1,
+                    avatar: 1
+                  }
+                }
+              ]
+            }
+          },
+          {
+            $addFields:{
+              owner:{
+                $first:"$owner"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ])
+
+  return res
+  .status(200)
+  .json(
+    new ApiResponse(200, user[0].watchHistory,"Watch History Successfully")//retun me array ka andar ak object mil raha hai use se watch history le liya hu
+  )
+})
+
 
 export { 
   registerUser, 
@@ -434,5 +486,6 @@ export {
   updateAccountDetails,
   updateUserAvatar,
   updateUserCoverImage,
-  getUserChannelProfile
+  getUserChannelProfile,
+  getWatchHistory
 }; //import me me iss name se hi import kar sakta hu
