@@ -172,7 +172,9 @@ const logoutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
     {
-      refereshToken: undefined,
+      $unset:{
+        refereshToken: 1,//this remove filed from the documents
+      }
     },
     {
       new: true,
@@ -420,7 +422,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
 // console.log(channel)//task
 
 const getWatchHistory = asyncHandler(async (req, res) => {
-  // console.log("USER ID:", req.user?._id)// Bog log or quick log
+  // console.log("USER ID:", req.user?._id)// Bug log or quick log
   const user = await User.aggregate([
     {
       $match: {
