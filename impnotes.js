@@ -1,3 +1,15 @@
+// Think of an envelope:
+
+// Envelope = HTTP Request
+
+// Address written outside = URL (/api/register)
+
+// Notes written inside = Body
+
+// The body is the inside content.
+
+
+
 //      The following is the list of exit codes in Node.js along with its descriptions:
 //      Exit Code 0: Node.js normally ends with a status code of 0 whenever there are no more open async operations and the code doesn't produce any uncaught exceptions.
 //      Exit Code 1, Uncaught Fatal Exception: If an uncaught exception occurs and it is not resolved by a domain or a "uncaughtException" event handler, Node.js exits with an exit code of 1.
