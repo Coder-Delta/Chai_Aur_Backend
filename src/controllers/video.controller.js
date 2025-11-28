@@ -1,61 +1,80 @@
-import mongoose, {isValidObjectId} from "mongoose"
-import {Video} from "../models/video.model.js"
-import {User} from "../models/user.model.js"
-import {ApiError} from "../utils/apiError.js"
-import {ApiResponse} from "../utils/ApiResponse.js"
-import {asyncHandler} from "../utils/asyncHandler.js"
-import {uploadOnCloudinary} from "../utils/cloudinary.js"
-
+import mongoose, { isValidObjectId } from "mongoose";
+import { Video } from "../models/video.model.js";
+import { User } from "../models/user.model.js";
+import { ApiError } from "../utils/apiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const getAllVideos = asyncHandler(async (req, res) => {
-    const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query
-    //TODO: get all videos based on query, sort, pagination
-    //shorting
-    //$sortArray: {
-    //input: Array,
-    //sortBy: query,
-    //}
+  const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query;
+  //TODO: get all videos based on query, sort, pagination
+  //shorting
+  //$sortArray: {
+  //input: Array,
+  //sortBy: query,
+  //}
 
-    //Algorithm
-    //Extract the data from req to destructure the body
-    //verifyjwt
-    //Search the req videos along the user's query
-    //shortBy (views or createdBy) user's specification
-    //short acending or decending order based on req
-    //JSON req send to the user
+  //Algorithm
+  //Extract the data from req to destructure the body
+  //verifyjwt
+  //Search the req videos along the user's query
+  //shortBy (views or createdBy) user's specification
+  //short acending or decending order based on req
+  //JSON req send to the user
+  // const query = MyModel.find(); // `query` is an instance of `Query`
+  // query.setOptions({ lean: true });
+  // query.collection(MyModel.collection);
+  // query.where("age").gte(21).exec(callback);
 
-})
+  try {
+    const filter = {
+      $or: [{ title: query }, { $text: { $search: query } }],
+    };
+    query.setOptions({ lean: true });
+    const video = await Video.find(filter);
+    console.log(video);
+
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(200,video,"Video feached successfully")
+    )
+    
+  } catch (error) {
+    new ApiError (500, "Something went wrong in the sesrching time")
+  }
+});
 
 const publishAVideo = asyncHandler(async (req, res) => {
-    const { title, description} = req.body
-    // TODO: get video, upload to cloudinary, create video
-})
+  const { title, description } = req.body;
+  // TODO: get video, upload to cloudinary, create video
+});
 
 const getVideoById = asyncHandler(async (req, res) => {
-    const { videoId } = req.params
-    //TODO: get video by id
-})
+  const { videoId } = req.params;
+  //TODO: get video by id
+});
 
 const updateVideo = asyncHandler(async (req, res) => {
-    const { videoId } = req.params
-    //TODO: update video details like title, description, thumbnail
-
-})
+  const { videoId } = req.params;
+  //TODO: update video details like title, description, thumbnail
+});
 
 const deleteVideo = asyncHandler(async (req, res) => {
-    const { videoId } = req.params
-    //TODO: delete video
-})
+  const { videoId } = req.params;
+  //TODO: delete video
+});
 
 const togglePublishStatus = asyncHandler(async (req, res) => {
-    const { videoId } = req.params
-})
+  const { videoId } = req.params;
+});
 
 export {
-    getAllVideos,
-    publishAVideo,
-    getVideoById,
-    updateVideo,
-    deleteVideo,
-    togglePublishStatus
-}
+  getAllVideos,
+  publishAVideo,
+  getVideoById,
+  updateVideo,
+  deleteVideo,
+  togglePublishStatus,
+};
