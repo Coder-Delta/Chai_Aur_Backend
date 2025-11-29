@@ -1,19 +1,13 @@
 import mongoose, { isValidObjectId } from "mongoose";
-import { Video } from "../models/video.model.js";
-import { User } from "../models/user.model.js";
+import { Video } from "../models/video.models.js";
+import { User } from "../models/user.models.js";
 import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const getAllVideos = asyncHandler(async (req, res) => {
-  const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query;
   //TODO: get all videos based on query, sort, pagination
-  //shorting
-  //$sortArray: {
-  //input: Array,
-  //sortBy: query,
-  //}
 
   //Algorithm
   //Extract the data from req to destructure the body
@@ -28,28 +22,83 @@ const getAllVideos = asyncHandler(async (req, res) => {
   // query.where("age").gte(21).exec(callback);
 
   try {
+    const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query;
+    // console.log(req.query)
+    //uncomplete
     const filter = {
       $or: [{ title: query }, { $text: { $search: query } }],
     };
-    query.setOptions({ lean: true });
-    const video = await Video.find(filter);
+
+    const video = await Video.find(filter).setOptions({ lean: true });
     console.log(video);
 
     return res
-    .status(200)
-    .json(
-        new ApiResponse(200,video,"Video feached successfully")
-    )
-    
+      .status(200)
+      .json(new ApiResponse(200, video, "Video feached successfully"));
   } catch (error) {
-    new ApiError (500, "Something went wrong in the sesrching time")
+    throw new ApiError(500, "Something went wrong in the sesrching time");
   }
-});
+}); //uncomplete
 
 const publishAVideo = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
   // TODO: get video, upload to cloudinary, create video
+  if ([title, description].some((field) => field?.trim() === "")) {
+    throw new ApiError(400, "All fields are required!");
+  }
+
+  //videFIle upload
+  const videoLocalpath = req.files?.videoFile?.[0]?.path; // FIXED NAME
+  if (!videoLocalpath) {
+    throw new ApiError(400, "Video is missing");
+  }
+
+  const video = await uploadOnCloudinary(videoLocalpath);
+
+  if (!video) {
+    throw new ApiError(
+      500,
+      "Something went wrong while uploading the video file"
+    );
+  }
+
+  //thumbnail
+  const thumbnailLocalpath = req.files?.thumbnail?.[0]?.path;
+  if (!thumbnailLocalpath) {
+    throw new ApiError(400, "Thumbnail is missing");
+  }
+
+  const thumbnail = await uploadOnCloudinary(thumbnailLocalpath);
+
+  if (!thumbnail) {
+    throw new ApiError(
+      500,
+      "Something went wrong while uploading the Thumbnail file"
+    );
+  }
+
+  //get the duration time from cloudinary
+
+  const user = await User.findByIdAndUpdate(
+    req.user?._id,
+    {
+      $set: {
+        videoFile: video.url,
+        thumbnail: thumbnail.url,
+        title: title,
+        description: description,
+        // duration:
+      },
+    },
+    { new: true } // return mongodb a new one document
+  ).select("-password");
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, user, "Video File Upload successfully"));
 });
+
+
 
 const getVideoById = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
