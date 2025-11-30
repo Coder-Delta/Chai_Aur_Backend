@@ -15,7 +15,7 @@ const generateAccessAndRefereshTokens = async (userId) => {
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });
 
-    return { accessToken};
+    return { accessToken, refreshToken};
   } catch (error) {
     throw new ApiError(
       500,
