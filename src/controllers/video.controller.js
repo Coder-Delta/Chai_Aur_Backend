@@ -78,27 +78,20 @@ const publishAVideo = asyncHandler(async (req, res) => {
   }
 
   //get the duration time from cloudinary
+  // const videoFile = await Video.findById(req?._id)
 
-  const user = await User.findByIdAndUpdate(
-    req.user?._id,
-    {
-      $set: {
-        videoFile: video.url,
-        thumbnail: thumbnail.url,
-        title: title,
-        description: description,
-        // duration:
-      },
-    },
-    { new: true } // return mongodb a new one document
-  ).select("-password");
+  const createdVideoFile = await Video.create({
+    videoFile: video.url,
+    thumbnail: thumbnail.url,
+    title: title,
+    description: description,
+    duration: video.duration,
+  });
 
   return res
     .status(200)
-    .json(new ApiResponse(200, user, "Video File Upload successfully"));
+    .json(new ApiResponse(200, createdVideoFile, "Video File Upload successfully"));
 });
-
-
 
 const getVideoById = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
