@@ -263,7 +263,7 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 }); //Done
 
 const getCurrentUser = asyncHandler(async (req, res) => {
-  return res.status(200).json(200, req.user, "User injected successfully");
+  return res.status(200).json(new ApiResponse(200, req.user, "User injected successfully"));
 }); //Done
 
 const updateAccountDetails = asyncHandler(async (req, res) => {

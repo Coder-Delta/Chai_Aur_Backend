@@ -78,7 +78,8 @@ const publishAVideo = asyncHandler(async (req, res) => {
   }
 
   //get the duration time from cloudinary
-  // const videoFile = await Video.findById(req?._id)
+  const user = await req.user
+
 
   const createdVideoFile = await Video.create({
     videoFile: video.url,
@@ -86,16 +87,18 @@ const publishAVideo = asyncHandler(async (req, res) => {
     title: title,
     description: description,
     duration: video.duration,
+    videoOwner: user._id
   });
 
   return res
     .status(200)
     .json(new ApiResponse(200, createdVideoFile, "Video File Upload successfully"));
-});
+});//complete
 
 const getVideoById = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
   //TODO: get video by id
+  const video = await Video._id
 });
 
 const updateVideo = asyncHandler(async (req, res) => {
