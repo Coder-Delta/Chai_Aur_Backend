@@ -116,9 +116,25 @@ const getVideoById = asyncHandler(async (req, res) => {
 });//complete
 
 const updateVideo = asyncHandler(async (req, res) => {
-  const { videoId } = req.params;
+  const { videoId, title, description, thumbnail } = req.body;
   //TODO: update video details like title, description, thumbnail
-});
+  if (!videoId?.trim()) {
+    throw new ApiError(404, "Video id is required!")
+  }
+
+  const video = await Video.findByIdAndUpdate(videoId,{
+    title:title,
+    description:description,
+    thumbnail:thumbnail
+  })//uncomplete
+
+  if (!(video)) {
+    throw new ApiError(500, " Something went wrong")
+  }
+  return res
+  .status(200)
+  .json(new ApiResponse(200, video, "Update successfully done"))
+});//complete
 
 const deleteVideo = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
