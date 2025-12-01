@@ -78,8 +78,7 @@ const publishAVideo = asyncHandler(async (req, res) => {
   }
 
   //get the duration time from cloudinary
-  const user = await req.user
-
+  const user = await req.user;
 
   const createdVideoFile = await Video.create({
     videoFile: video.url,
@@ -87,13 +86,15 @@ const publishAVideo = asyncHandler(async (req, res) => {
     title: title,
     description: description,
     duration: video.duration,
-    videoOwner: user._id
+    videoOwner: user._id,
   });
 
   return res
     .status(200)
-    .json(new ApiResponse(200, createdVideoFile, "Video File Upload successfully"));
-});//complete
+    .json(
+      new ApiResponse(200, createdVideoFile, "Video File Upload successfully")
+    );
+}); //complete
 
 const getVideoById = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
@@ -101,62 +102,95 @@ const getVideoById = asyncHandler(async (req, res) => {
   // console.log(videoId)
 
   if (!videoId?.trim()) {
-    throw new ApiError(404, "Video id is required!")
+    throw new ApiError(404, "Video id is required!");
   }
 
-  const video = await Video.findById(videoId)
+  const video = await Video.findById(videoId);
 
-  if (!(video)) {
-    throw new ApiError(500, " Something went wrong")
+  if (!video) {
+    throw new ApiError(500, " Something went wrong");
   }
 
-    return res.
-    status(200)
-    .json(new ApiResponse (200, video ,"Video feached successfully"))
-});//complete
+  return res
+    .status(200)
+    .json(new ApiResponse(200, video, "Video feached successfully"));
+}); //complete
 
 const updateVideo = asyncHandler(async (req, res) => {
   const { videoId, title, description, thumbnail } = req.body;
   //TODO: update video details like title, description, thumbnail
   if (!videoId?.trim()) {
-    throw new ApiError(404, "Video id is required!")
+    throw new ApiError(404, "Video id is required!");
   }
 
-  const video = await Video.findByIdAndUpdate(videoId,{
-    title:title,
-    description:description,
-    thumbnail:thumbnail
-  })//uncomplete
+  const video = await Video.findByIdAndUpdate(videoId, {
+    title: title,
+    description: description,
+    thumbnail: thumbnail,
+  }); //uncomplete
 
-  if (!(video)) {
-    throw new ApiError(500, " Something went wrong")
+  if (!video) {
+    throw new ApiError(500, " Something went wrong");
   }
   return res
-  .status(200)
-  .json(new ApiResponse(200, video, "Update successfully done"))
-});//complete
+    .status(200)
+    .json(new ApiResponse(200, video, "Update successfully done"));
+}); //complete
 
 const deleteVideo = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
   //TODO: delete video
   if (!videoId?.trim()) {
-    throw new ApiError(404, "Video id is required!")
+    throw new ApiError(404, "Video id is required!");
   }
-  console.log(videoId)
+  console.log(videoId);
 
-  const video = await Video.findByIdAndDelete(videoId)
+  const video = await Video.findByIdAndDelete(videoId);
 
-  if (!(video)) {
-    throw new ApiError(500, " Something went wrong")
+  if (!video) {
+    throw new ApiError(500, " Something went wrong");
   }
 
-    return res.
-    status(200)
-    .json(new ApiResponse (200,{},"Video deleted successfully"))
-});//complete
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Video deleted successfully"));
+}); //complete
 
 const togglePublishStatus = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
+
+  // console.log(req.user?._id)
+
+  const video = await Video.findById(videoId);
+
+  const owner = String(video.videoOwner);
+  const user = String(req.user._id);
+
+  if (!video.isPublished && owner === user) {
+    throw new ApiError(403, "This is a private video");
+  }//need to cheak it doeasn't work properly
+
+  try {
+    const updatedVideo = await Video.findByIdAndUpdate(
+      videoId,
+      {
+        $set: { isPublished: !video.isPublished }, // your toggle logic kept same
+      },
+      { new: true } // fixed: valid option here
+    );
+
+    if (!updatedVideo) {
+      throw new ApiError(500, "Update failed");
+    }
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(200, updatedVideo, "Your state changed successfully")
+      );
+  } catch (error) {
+    throw new ApiError(500, "Something went wrong");
+  }
 });
 
 export {
