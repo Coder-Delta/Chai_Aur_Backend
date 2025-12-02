@@ -7,6 +7,9 @@ import {asyncHandler} from "../utils/asyncHandler.js"
 
 const createTweet = asyncHandler(async (req, res) => {
     //TODO: create tweet
+    const{ tweet } = req.body;
+
+    
 })
 
 const getUserTweets = asyncHandler(async (req, res) => {
