@@ -159,16 +159,17 @@ const deleteVideo = asyncHandler(async (req, res) => {
 const togglePublishStatus = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
 
-  // console.log(req.user?._id)
+  console.log(req.user?._id)
 
   const video = await Video.findById(videoId);
 
-  const owner = String(video.videoOwner);
-  const user = String(req.user._id);
+  // const owner = String(video.videoOwner);
+  // const user = String(req.user?._id);
 
-  if (!video.isPublished && owner === user) {
-    throw new ApiError(403, "This is a private video");
-  }//need to cheak it doeasn't work properly
+  // if (!video.isPublished && owner === user) {
+  //   console.log("Control is here!")
+  //   throw new ApiError(403, "This is a private video");
+  // }//need to cheak it doeasn't work properly
 
   try {
     const updatedVideo = await Video.findByIdAndUpdate(

@@ -77,3 +77,5 @@
 //refreh token long period ke liya hota hai
 
 
+// for faster searching we use indexing 
+// it is b tree data structure
