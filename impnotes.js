@@ -79,3 +79,30 @@
 
 // for faster searching we use indexing 
 // it is b tree data structure
+
+
+// But toggling itself does not require pipeline, because:
+
+// ❗ Aggregation pipeline CANNOT:
+
+// delete
+
+// create
+
+// insert
+
+// toggle documents
+
+// Aggregation pipeline is only for:
+
+// combining data
+
+// counting
+
+// grouping
+
+// projecting
+
+// matching
+
+// Toggling subscription is a write operation, not an aggregation operation.
