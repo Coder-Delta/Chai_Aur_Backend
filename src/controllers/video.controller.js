@@ -7,38 +7,61 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const getAllVideos = asyncHandler(async (req, res) => {
-  //TODO: get all videos based on query, sort, pagination
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
 
-  //Algorithm
-  //Extract the data from req to destructure the body
-  //verifyjwt
-  //Search the req videos along the user's query
-  //shortBy (views or createdBy) user's specification
-  //short acending or decending order based on req
-  //JSON req send to the user
-  // const query = MyModel.find(); // `query` is an instance of `Query`
-  // query.setOptions({ lean: true });
-  // query.collection(MyModel.collection);
-  // query.where("age").gte(21).exec(callback);
+  const { query, sortBy = "createdAt", sortType = "desc", userId } = req.query;
 
-  try {
-    const { page = 1, limit = 10, query, sortBy, sortType, userId } = req.query;
-    // console.log(req.query)
-    //uncomplete
-    const filter = {
-      $or: [{ title: query }, { $text: { $search: query } }],
-    };
+  let matchStage = {};
 
-    const video = await Video.find(filter).setOptions({ lean: true });
-    console.log(video);
-
-    return res
-      .status(200)
-      .json(new ApiResponse(200, video, "Video feached successfully"));
-  } catch (error) {
-    throw new ApiError(500, "Something went wrong in the sesrching time");
+  if (query) {
+    matchStage.$or = [
+      { title: { $regex: query, $options: "i" } },
+      { description: { $regex: query, $options: "i" } },
+    ];
   }
-}); //uncomplete i want to add ai search engine and recomandation
+
+  if (userId) {
+    matchStage.videoOwner = userId;
+  }
+
+  const videos = await Video.aggregate([
+    { $match: matchStage },
+    { $sort: { [sortBy]: sortType === "asc" ? 1 : -1 } },
+    { $skip: skip },
+    { $limit: limit },
+    {
+      $lookup: {
+        from: "users",
+        localField: "videoOwner",
+        foreignField: "_id",
+        as: "owner",
+        pipeline: [{ $project: { username: 1, avatar: 1, email: 1 } }],
+      },
+    },
+    { $unwind: "$owner" },
+  ]);
+
+  const totalVideos = await Video.countDocuments(matchStage);
+  const totalPages = Math.ceil(totalVideos / limit);
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      {
+        videos,
+        pagination: {
+          page,
+          limit,
+          totalVideos,
+          totalPages,
+        },
+      },
+      "Videos fetched successfully"
+    )
+  );
+});//complete i want to add ai search engine and recomandation
 
 const publishAVideo = asyncHandler(async (req, res) => {
   const { title, description } = req.body;

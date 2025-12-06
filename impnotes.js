@@ -107,6 +107,40 @@
 
 // Toggling subscription is a write operation, not an aggregation operation.
 
-// 692d363aa2af44587e969946
 
-// 6932845d13f0496e42177925
+// getAllVideos Controller - Explanation Notes
+
+// 1. Pagination
+//    • page and limit come from req.query
+//    • skip = (page - 1) * limit
+
+// 2. Query Params
+//    • query: search keyword for title or description
+//    • userId: filter videos by uploader
+//    • sortBy: any field (createdAt, views, etc.)
+//    • sortType: asc or desc
+
+// 3. matchStage object
+//    • Used in the first $match stage of aggregation
+//    • Filled only if query or userId are provided
+
+// 4. Search
+//    • $regex with "i" for case-insensitive matching
+//    • Searches both title and description
+
+// 5. Sorting
+//    • Dynamically sorts based on sortBy & sortType
+
+// 6. Pagination in Aggregation
+//    • $skip and $limit used for page data
+
+// 7. $lookup
+//    • Joins user details (username, avatar, email)
+//    • Only returns selected fields using $project
+
+// 8. Total Count
+//    • countDocuments(matchStage)
+//    • Calculates total pages for frontend
+
+// 9. Response
+//    • videos array + pagination info
