@@ -9,18 +9,15 @@ Project uses all standard practices like JWT, bcrypt, access tokens, refresh Tok
 To understand the complete structure and flow of the project, you can view the full model diagram using the link below:
 
 🔗 Model Diagram (Eraser Workspace)
-https://app.eraser.io/workspace/cVKAxuwbqqOZtOM0wwzX?origin=share
+<h4> https://app.eraser.io/workspace/cVKAxuwbqqOZtOM0wwzX?origin=share</h4>
 
 This diagram includes:
-
 Database models
-
 Relationships between collections
-
 API structure
-
 Authentication flow
-
 Overall system architecture
-
 Use this diagram as a reference to understand how different parts of the project connect and operate together.
+
+To see all API request hit this link =>
+<h4> https://coder-delta-7069445.postman.co/workspace/CRUD~bca99257-1145-4e7a-80b7-b466b7b03b3b/collection/48685006-be238b19-e035-4238-b265-6c12681b6c86?action=share&creator=48685006&active-environment=48685006-11560473-c1fa-4f3a-b7b6-d2e7a442b211 </h4>
