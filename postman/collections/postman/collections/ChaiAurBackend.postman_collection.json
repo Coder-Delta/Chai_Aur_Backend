@@ -1,0 +1,2498 @@
+{
+  "info": {
+    "_postman_id": "4b98dd0c-ea32-4763-994a-ccafb56bacb8",
+    "name": "ChaiAurBackend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Register",
+          "id": "c3df7c46-ec93-4d39-ad94-bed573d7eb8b",
+          "request": {
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "fullName",
+                  "value": "Cyclone",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "xiaounili0@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "123wera$",
+                  "type": "text"
+                },
+                {
+                  "key": "username",
+                  "value": "cyclone",
+                  "type": "text"
+                },
+                {
+                  "key": "avatar",
+                  "type": "file",
+                  "src": "/C:/Users/Ranjit/Downloads/Picsart_25-11-25_11-21-00-602 (1).jpg"
+                },
+                {
+                  "key": "coverImage",
+                  "type": "file",
+                  "src": "postman-cloud:///1f0c6f82-0e12-4360-923d-2c7ca2a055ed"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{server}}/users/register",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "users",
+                "register"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0df7bf85-a6ec-46e6-8363-ef2ff96eacff",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "fullName",
+                      "value": "Cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "email",
+                      "value": "xiaounili0@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123wera$",
+                      "type": "text"
+                    },
+                    {
+                      "key": "username",
+                      "value": "cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/Ranjit/Downloads/Yor.jpg"
+                      ]
+                    },
+                    {
+                      "key": "coverImage",
+                      "type": "file",
+                      "src": [
+                        "postman-cloud:///1f0c6f82-0e12-4360-923d-2c7ca2a055ed"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{server}}/users/register",
+                  "host": [
+                    "{{server}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "714"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2ca-B3CC8FL6qkHYt6IyW8GKeRdqUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 21 Nov 2025 19:15:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "body": "{\n    \"statusCode\": 200,\n    \"data\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"message\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"success\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "id": "e3d99c68-c778-4586-8c5a-155057cfd8e3",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"cyclone1\",\r\n    \"password\": \"123wera$\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/users/login",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "users",
+                "login"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "aea29328-c574-483f-a1fb-67869f1c7473",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "fullName",
+                      "value": "Cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "email",
+                      "value": "xiaounili0@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123wera$",
+                      "type": "text"
+                    },
+                    {
+                      "key": "username",
+                      "value": "cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/Ranjit/Downloads/Yor.jpg"
+                      ]
+                    },
+                    {
+                      "key": "coverImage",
+                      "type": "file",
+                      "src": [
+                        "postman-cloud:///1f0c6f82-0e12-4360-923d-2c7ca2a055ed"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{server}}/users/register",
+                  "host": [
+                    "{{server}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "714"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2ca-B3CC8FL6qkHYt6IyW8GKeRdqUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 21 Nov 2025 19:15:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "body": "{\n    \"statusCode\": 200,\n    \"data\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"message\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"success\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "id": "b16d63ad-1e6a-4988-a139-05a8b1765d43",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"cyclone\",\r\n    \"password\": \"123wera$\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/users/logout",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "users",
+                "logout"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1dac293e-f296-408d-a24d-b3245c6fbb59",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "fullName",
+                      "value": "Cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "email",
+                      "value": "xiaounili0@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123wera$",
+                      "type": "text"
+                    },
+                    {
+                      "key": "username",
+                      "value": "cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/Ranjit/Downloads/Yor.jpg"
+                      ]
+                    },
+                    {
+                      "key": "coverImage",
+                      "type": "file",
+                      "src": [
+                        "postman-cloud:///1f0c6f82-0e12-4360-923d-2c7ca2a055ed"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{server}}/users/register",
+                  "host": [
+                    "{{server}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "714"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2ca-B3CC8FL6qkHYt6IyW8GKeRdqUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 21 Nov 2025 19:15:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "body": "{\n    \"statusCode\": 200,\n    \"data\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"message\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"success\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Refresh-token",
+          "id": "20e11ab2-347f-48d0-bd57-377d05d498e1",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"cyclone\",\r\n    \"password\": \"123wera$\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/users/refresh-token",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "users",
+                "refresh-token"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5ed82a36-40c3-41d8-96b0-7b5385c0e85d",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "fullName",
+                      "value": "Cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "email",
+                      "value": "xiaounili0@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123wera$",
+                      "type": "text"
+                    },
+                    {
+                      "key": "username",
+                      "value": "cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/Ranjit/Downloads/Yor.jpg"
+                      ]
+                    },
+                    {
+                      "key": "coverImage",
+                      "type": "file",
+                      "src": [
+                        "postman-cloud:///1f0c6f82-0e12-4360-923d-2c7ca2a055ed"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{server}}/users/register",
+                  "host": [
+                    "{{server}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "714"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2ca-B3CC8FL6qkHYt6IyW8GKeRdqUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 21 Nov 2025 19:15:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "body": "{\n    \"statusCode\": 200,\n    \"data\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"message\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"success\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Change-password",
+          "id": "c8ec9fb6-5275-4f91-a09d-781b1d47c3e3",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"oldPassword\": \"123\",\r\n    \"newPassword\": \"123wera$\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/users/change-password",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "users",
+                "change-password"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fa91a5b8-8b0b-4746-a80c-6c55983fd808",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "fullName",
+                      "value": "Cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "email",
+                      "value": "xiaounili0@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123wera$",
+                      "type": "text"
+                    },
+                    {
+                      "key": "username",
+                      "value": "cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/Ranjit/Downloads/Yor.jpg"
+                      ]
+                    },
+                    {
+                      "key": "coverImage",
+                      "type": "file",
+                      "src": [
+                        "postman-cloud:///1f0c6f82-0e12-4360-923d-2c7ca2a055ed"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{server}}/users/register",
+                  "host": [
+                    "{{server}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "714"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2ca-B3CC8FL6qkHYt6IyW8GKeRdqUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 21 Nov 2025 19:15:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "body": "{\n    \"statusCode\": 200,\n    \"data\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"message\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"success\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Current-user",
+          "id": "396fbfa8-3c7a-4e09-9c43-735af4fcbb82",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"cyclone\",\r\n    \"password\": \"123wera$\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/users/current-user",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "users",
+                "current-user"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e78f7b27-c3e4-40a8-b0fe-526c565dbe17",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "fullName",
+                      "value": "Cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "email",
+                      "value": "xiaounili0@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123wera$",
+                      "type": "text"
+                    },
+                    {
+                      "key": "username",
+                      "value": "cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/Ranjit/Downloads/Yor.jpg"
+                      ]
+                    },
+                    {
+                      "key": "coverImage",
+                      "type": "file",
+                      "src": [
+                        "postman-cloud:///1f0c6f82-0e12-4360-923d-2c7ca2a055ed"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{server}}/users/register",
+                  "host": [
+                    "{{server}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "714"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2ca-B3CC8FL6qkHYt6IyW8GKeRdqUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 21 Nov 2025 19:15:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "body": "{\n    \"statusCode\": 200,\n    \"data\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"message\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"success\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update-account",
+          "id": "2499eb3b-f93e-4e87-a252-50f734cc9f93",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullName\":\"cyclonenew\",\r\n    \"email\":\"sivagost600@gmail.com\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/users/update-account",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "users",
+                "update-account"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c5b6e851-5ee8-4ad2-a3bc-99128a84d5fd",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "fullName",
+                      "value": "Cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "email",
+                      "value": "xiaounili0@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123wera$",
+                      "type": "text"
+                    },
+                    {
+                      "key": "username",
+                      "value": "cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/Ranjit/Downloads/Yor.jpg"
+                      ]
+                    },
+                    {
+                      "key": "coverImage",
+                      "type": "file",
+                      "src": [
+                        "postman-cloud:///1f0c6f82-0e12-4360-923d-2c7ca2a055ed"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{server}}/users/register",
+                  "host": [
+                    "{{server}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "714"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2ca-B3CC8FL6qkHYt6IyW8GKeRdqUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 21 Nov 2025 19:15:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "body": "{\n    \"statusCode\": 200,\n    \"data\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"message\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"success\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Avatar",
+          "id": "7c02790a-1a04-46f7-a658-f5b8963e8177",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "avatar",
+                  "type": "file",
+                  "src": "/C:/Users/Ranjit/Downloads/Picsart_25-11-25_11-21-00-602 (1).jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{server}}/users/avatar",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "users",
+                "avatar"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f5fa7b93-ff23-4832-b145-75aa4632a33d",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "fullName",
+                      "value": "Cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "email",
+                      "value": "xiaounili0@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123wera$",
+                      "type": "text"
+                    },
+                    {
+                      "key": "username",
+                      "value": "cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/Ranjit/Downloads/Yor.jpg"
+                      ]
+                    },
+                    {
+                      "key": "coverImage",
+                      "type": "file",
+                      "src": [
+                        "postman-cloud:///1f0c6f82-0e12-4360-923d-2c7ca2a055ed"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{server}}/users/register",
+                  "host": [
+                    "{{server}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "714"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2ca-B3CC8FL6qkHYt6IyW8GKeRdqUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 21 Nov 2025 19:15:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "body": "{\n    \"statusCode\": 200,\n    \"data\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"message\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"success\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Cover-image",
+          "id": "77479ed0-998d-40b0-b3a6-22f0194f3016",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "coverImage",
+                  "type": "file",
+                  "src": "/C:/Users/Ranjit/Downloads/madara.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{server}}/users/cover-image?username=cyclone",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "users",
+                "cover-image"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "cyclone"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "76b1f117-f95c-485c-96e9-2f30fa5aadbd",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "fullName",
+                      "value": "Cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "email",
+                      "value": "xiaounili0@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123wera$",
+                      "type": "text"
+                    },
+                    {
+                      "key": "username",
+                      "value": "cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/Ranjit/Downloads/Yor.jpg"
+                      ]
+                    },
+                    {
+                      "key": "coverImage",
+                      "type": "file",
+                      "src": [
+                        "postman-cloud:///1f0c6f82-0e12-4360-923d-2c7ca2a055ed"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{server}}/users/register",
+                  "host": [
+                    "{{server}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "714"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2ca-B3CC8FL6qkHYt6IyW8GKeRdqUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 21 Nov 2025 19:15:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "body": "{\n    \"statusCode\": 200,\n    \"data\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"message\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"success\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "UserChannelProfile",
+          "id": "246abcd8-1253-4a95-bc53-c0910f59f7ce",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"cyclone\",\r\n    \"password\": \"123wera$\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/users/c/:username",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "users",
+                "c",
+                ":username"
+              ],
+              "variable": [
+                {
+                  "key": "username",
+                  "value": "cyclone"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3b405962-c38a-4fba-bce8-4f99757859f2",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "fullName",
+                      "value": "Cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "email",
+                      "value": "xiaounili0@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123wera$",
+                      "type": "text"
+                    },
+                    {
+                      "key": "username",
+                      "value": "cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/Ranjit/Downloads/Yor.jpg"
+                      ]
+                    },
+                    {
+                      "key": "coverImage",
+                      "type": "file",
+                      "src": [
+                        "postman-cloud:///1f0c6f82-0e12-4360-923d-2c7ca2a055ed"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{server}}/users/register",
+                  "host": [
+                    "{{server}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "714"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2ca-B3CC8FL6qkHYt6IyW8GKeRdqUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 21 Nov 2025 19:15:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "body": "{\n    \"statusCode\": 200,\n    \"data\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"message\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"success\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Watch-history",
+          "id": "59b14d26-5bef-4e59-907f-e7b9d1ac69f6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"cyclone\",\r\n    \"password\": \"123wera$\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/users/history",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "users",
+                "history"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5c41bc9a-1ef6-4088-8d41-03f2e2015ba8",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "fullName",
+                      "value": "Cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "email",
+                      "value": "xiaounili0@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "123wera$",
+                      "type": "text"
+                    },
+                    {
+                      "key": "username",
+                      "value": "cyclone",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/Ranjit/Downloads/Yor.jpg"
+                      ]
+                    },
+                    {
+                      "key": "coverImage",
+                      "type": "file",
+                      "src": [
+                        "postman-cloud:///1f0c6f82-0e12-4360-923d-2c7ca2a055ed"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{server}}/users/register",
+                  "host": [
+                    "{{server}}"
+                  ],
+                  "path": [
+                    "users",
+                    "register"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "714"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2ca-B3CC8FL6qkHYt6IyW8GKeRdqUSA\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 21 Nov 2025 19:15:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "body": "{\n    \"statusCode\": 200,\n    \"data\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"message\": {\n        \"_id\": \"6920ba4e73c99bcffd49b464\",\n        \"username\": \"cyclone\",\n        \"email\": \"xiaounili0@gmail.com\",\n        \"fullName\": \"Cyclone\",\n        \"avatar\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752488/k7guuqzxpg8d2lntjqk1.jpg\",\n        \"coverImage\": \"http://res.cloudinary.com/dbfiqiuwz/image/upload/v1763752525/mhiyasg8m9ug94hivllf.png\",\n        \"watchHistory\": [],\n        \"__v\": 0\n    },\n    \"success\": true\n}"
+            }
+          ]
+        }
+      ],
+      "id": "a60a248d-580f-47ab-b6ce-b7bb1e5d884f"
+    },
+    {
+      "name": "Video",
+      "item": [
+        {
+          "name": "Get All Videos",
+          "id": "85a31616-0734-40e3-9118-5256b94dfca1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"cyclone1\",\r\n    \"password\": \"123wera$\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/videos?query=video&page=1&limit=10",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "videos"
+              ],
+              "query": [
+                {
+                  "key": "query",
+                  "value": "video"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "views",
+                  "disabled": true
+                },
+                {
+                  "key": "sortType",
+                  "value": "desc",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Video By Id",
+          "id": "26b51609-03ed-497d-9c59-36cff892366d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "body": {
+              "mode": "formdata"
+            },
+            "url": {
+              "raw": "{{server}}/videos/:videoId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "videos",
+                ":videoId"
+              ],
+              "variable": [
+                {
+                  "key": "videoId",
+                  "value": "692d3527a2af44587e96992f"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Video Details",
+          "id": "2d7f3b05-47db-40cf-b1c8-adc61fb8215d",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Update video",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "It is an educational video",
+                  "type": "text"
+                },
+                {
+                  "key": "thumbnail",
+                  "type": "file",
+                  "src": "/C:/Users/Ranjit/Downloads/Yor.jpg"
+                },
+                {
+                  "key": "videoId",
+                  "value": "692d3527a2af44587e96992f",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{server}}/videos/:videoId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "videos",
+                ":videoId"
+              ],
+              "variable": [
+                {
+                  "key": "videoId",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Post Video",
+          "id": "43456072-f8e3-4dd1-ade4-0ffbd23e7056",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "First video",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "It is an educational video",
+                  "type": "text"
+                },
+                {
+                  "key": "videoFile",
+                  "type": "file",
+                  "src": "/C:/Users/Ranjit/Downloads/Free_Test_Data_1MB_MP4.mp4"
+                },
+                {
+                  "key": "thumbnail",
+                  "type": "file",
+                  "src": "postman-cloud:///1f0c6f82-0e12-4360-923d-2c7ca2a055ed"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{server}}/videos",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "videos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Video",
+          "id": "22852e66-9ae9-4beb-b6d1-f12f5b1acd09",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "videoId",
+                  "value": "692d6a7184ff03d81ae06420",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{server}}/videos/:videoId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "videos",
+                ":videoId"
+              ],
+              "variable": [
+                {
+                  "key": "videoId",
+                  "value": "692d6a7184ff03d81ae06420"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Toggle Sate",
+          "id": "5774524e-67dc-4ae9-865a-226f2cca5160",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "body": {
+              "mode": "formdata"
+            },
+            "url": {
+              "raw": "{{server}}/videos/toggle/publish/:videoId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "videos",
+                "toggle",
+                "publish",
+                ":videoId"
+              ],
+              "variable": [
+                {
+                  "key": "videoId",
+                  "value": ""
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "id": "c30bc05f-9c45-421b-95e1-fb994f60d323"
+    },
+    {
+      "name": "comments",
+      "item": [
+        {
+          "name": "Feached all coment based on videoId",
+          "id": "2f80ecfd-737b-457b-84b9-2bca6f035012",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"cyclone1\",\r\n    \"password\": \"123wera$\"\r\n}"
+            },
+            "url": {
+              "raw": "{{server}}/comments/:videoId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "comments",
+                ":videoId"
+              ],
+              "variable": [
+                {
+                  "key": "videoId",
+                  "value": "692d363aa2af44587e969946"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Posed comment",
+          "id": "a9ef6098-a9cf-4579-b68c-56d88707fc1b",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{server}}/comments/:videoId?content=nice video",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "comments",
+                ":videoId"
+              ],
+              "query": [
+                {
+                  "key": "content",
+                  "value": "nice video"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "videoId",
+                  "value": "692d363aa2af44587e969946"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update comment",
+          "id": "a4eb7c61-061c-4517-8504-2f49dd7faca1",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"cyclone1\",\r\n    \"password\": \"123wera$\"\r\n}"
+            },
+            "url": {
+              "raw": "{{server}}/comments/c/:commentId?content=First comment",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "comments",
+                "c",
+                ":commentId"
+              ],
+              "query": [
+                {
+                  "key": "content",
+                  "value": "First comment"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "commentId",
+                  "value": "693065624fffc21dbec66769"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete comment",
+          "id": "ece4df33-1071-4cad-8c3a-a97fa414f423",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"cyclone1\",\r\n    \"password\": \"123wera$\"\r\n}"
+            },
+            "url": {
+              "raw": "{{server}}/comments/c/:commentId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "comments",
+                "c",
+                ":commentId"
+              ],
+              "variable": [
+                {
+                  "key": "commentId",
+                  "value": "693065624fffc21dbec66769"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "id": "e93f0409-fcf1-41f2-a158-5eb966b989e6"
+    },
+    {
+      "name": "Tweet",
+      "item": [
+        {
+          "name": "Get Tweets",
+          "id": "f44cc181-ab32-4276-bdcd-1caef3d0937e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{server}}/tweets/user/:userId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "tweets",
+                "user",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "692d3608a2af44587e96993e"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get tweets",
+          "id": "01d72434-36cc-48cb-b98b-ce22b990a52a",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"content\":\"new tweet here\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/tweets/",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "tweets",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update tweets",
+          "id": "1437b341-7a30-4056-a2bf-1f233c0c992b",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/tweets/:tweetId?content=New tweet updated",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "tweets",
+                ":tweetId"
+              ],
+              "query": [
+                {
+                  "key": "content",
+                  "value": "New tweet updated"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "tweetId",
+                  "value": "6930830e408632323d808c58"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete tweets",
+          "id": "74c79f48-dd72-4c3b-9916-4acf08427d4e",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/tweets/:tweetId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "tweets",
+                ":tweetId"
+              ],
+              "variable": [
+                {
+                  "key": "tweetId",
+                  "value": "6930830e408632323d808c58"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "id": "59a402b0-6193-4dc9-8d7f-8bfbe155dfb7"
+    },
+    {
+      "name": "Playlist",
+      "item": [
+        {
+          "name": "Create playlist",
+          "id": "d09387ea-207d-4c3d-99f0-a3d0e705b1fd",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\" : \"Sec Playlist\",\r\n    \"description\" : \"New playlist for music\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/playlist/",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "playlist",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User whole Playlists",
+          "id": "f179311d-fb99-44d3-954f-daa8d3928aa7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/playlist/user/:userId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "playlist",
+                "user",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "userId",
+                  "value": "692d3608a2af44587e96993e"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Playlist",
+          "id": "baf840eb-f6f8-4c92-a043-886acf85ebee",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/playlist/:playlistId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "playlist",
+                ":playlistId"
+              ],
+              "variable": [
+                {
+                  "key": "playlistId",
+                  "value": "6932b27cf30341d400e72153"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Playlist video added",
+          "id": "e79c822b-f4e9-43f5-b123-c4a18706417f",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/playlist/add/:videoId/:playlistId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "playlist",
+                "add",
+                ":videoId",
+                ":playlistId"
+              ],
+              "variable": [
+                {
+                  "key": "videoId",
+                  "value": "692d363aa2af44587e969946"
+                },
+                {
+                  "key": "playlistId",
+                  "value": "6932b27cf30341d400e72153"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Playlist video delete",
+          "id": "ac5c2a48-dab6-49e6-834b-da6e5912ecdd",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/playlist/remove/:videoId/:playlistId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "playlist",
+                "remove",
+                ":videoId",
+                ":playlistId"
+              ],
+              "variable": [
+                {
+                  "key": "videoId",
+                  "value": "692d363aa2af44587e969925"
+                },
+                {
+                  "key": "playlistId",
+                  "value": "6932b27cf30341d400e72153"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Playlist",
+          "id": "fc3162db-5650-4011-8d67-68eda37e0b6d",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/playlist/:playlistId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "playlist",
+                ":playlistId"
+              ],
+              "variable": [
+                {
+                  "key": "playlistId",
+                  "value": "6932b27cf30341d400e72153"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Playlist",
+          "id": "f4451cf7-5c55-4afb-a32f-bec516ba12ad",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Nice Song Playlist\",\r\n    \"description\": \"Spotify playlist 2025\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{server}}/playlist/:playlistId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "playlist",
+                ":playlistId"
+              ],
+              "variable": [
+                {
+                  "key": "playlistId",
+                  "value": "6932bac40dc97985712edb7d"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "id": "c6503ea7-8a73-412b-901f-2c5aaf255f90"
+    },
+    {
+      "name": "Like",
+      "item": [
+        {
+          "name": "Get video like",
+          "id": "c01ad5da-7200-424f-8d61-226dcd58d15d",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{server}}/likes/toggle/c/:commentId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "likes",
+                "toggle",
+                "c",
+                ":commentId"
+              ],
+              "variable": [
+                {
+                  "key": "commentId",
+                  "value": "693065764fffc21dbec6676c"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Tweet like",
+          "id": "573a5cd8-f522-4503-9e18-146010964dfa",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{server}}/likes/toggle/t/:tweetId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "likes",
+                "toggle",
+                "t",
+                ":tweetId"
+              ],
+              "variable": [
+                {
+                  "key": "tweetId",
+                  "value": "693065764fffc21dbec6676c"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Comment like",
+          "id": "4d68ecb6-7a84-4ef7-882a-926654dc3669",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{server}}/likes/toggle/c/:commentId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "likes",
+                "toggle",
+                "c",
+                ":commentId"
+              ],
+              "variable": [
+                {
+                  "key": "commentId",
+                  "value": "693065764fffc21dbec6676c"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get all liked videos",
+          "id": "f04b4659-6a5d-4f5d-9e59-51ef17a71fd6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{server}}/likes/videos",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "likes",
+                "videos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Channel video",
+          "id": "d02bb25b-1772-4114-a1be-05cd1d66138b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"cyclone1\",\r\n    \"password\": \"123wera$\"\r\n}"
+            },
+            "url": {
+              "raw": "{{server}}/dashboard/videos",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "dashboard",
+                "videos"
+              ]
+            }
+          }
+        }
+      ],
+      "id": "4da6bdb6-eaee-45e7-84d2-9ad4f4551529"
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Channel Dashboard",
+          "id": "ec7e8028-7dab-4ca1-a024-ad8ee1d61097",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"cyclone1\",\r\n    \"password\": \"123wera$\"\r\n}"
+            },
+            "url": {
+              "raw": "{{server}}/dashboard/stats",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "dashboard",
+                "stats"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Channel video",
+          "id": "14164182-cf20-4a3c-9110-9383347d9d69",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"cyclone1\",\r\n    \"password\": \"123wera$\"\r\n}"
+            },
+            "url": {
+              "raw": "{{server}}/dashboard/stats",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "dashboard",
+                "stats"
+              ]
+            }
+          }
+        }
+      ],
+      "id": "24d3ab66-4e11-41ec-8748-65e2e0188942"
+    },
+    {
+      "name": "Subscription",
+      "item": [
+        {
+          "name": "toggleSubscription",
+          "id": "415cc803-16d5-49a0-9c23-a7852158b917",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{server}}/subscriptions/c/:channelId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "subscriptions",
+                "c",
+                ":channelId"
+              ],
+              "variable": [
+                {
+                  "key": "channelId",
+                  "value": "692d3608a2af44587e96993e"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get channel",
+          "id": "7d1bde7a-0d52-40a6-ae73-190d6110ec88",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{server}}/subscriptions/c/:channelId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "subscriptions",
+                "c",
+                ":channelId"
+              ],
+              "variable": [
+                {
+                  "key": "channelId",
+                  "value": "692d3608a2af44587e96993e"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Subscriber",
+          "id": "103eadde-f23b-4814-bf82-eec22ae7f876",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "url": {
+              "raw": "{{server}}/subscriptions/c/:subscriberId",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "subscriptions",
+                "c",
+                ":subscriberId"
+              ],
+              "variable": [
+                {
+                  "key": "subscriberId",
+                  "value": "692d3608a2af44587e96993e"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "id": "3c7696b3-8fab-4a80-bf32-c097c7d1657c"
+    }
+  ]
+}
