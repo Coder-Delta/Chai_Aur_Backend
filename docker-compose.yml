@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  videotube:
+    image: videotube:0.0.1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: videotube_app
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    restart: always
