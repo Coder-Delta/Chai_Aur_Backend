@@ -5,6 +5,23 @@ We are building a complete video hosting website similar to youtube with all the
 
 Project uses all standard practices like JWT, bcrypt, access tokens, refresh Tokens and many more. We have spent a lot of time in building this project and we are sure that you will learn a lot from this project.
 
+<h4>Docker Containerization<h4>
+
+This project supports Docker-based containerization, enabling you to run the VideoTube backend in a fully isolated and consistent environment. Using Docker removes local setup issues and makes development, testing, and deployment easier and more reliable.<br>
+
+<h4> To setup .env file </h4>
+Create a .env file in the project root like our sample.env file:<br>
+PORT=
+MONGODB_URI=
+CORS_ORIGIN=
+ACCESS_TOKEN_SECRET=
+ACCESS_TOKEN_EXPIRY=
+REFRESH_TOKEN_SECRET=
+REFRESH_TOKEN_EXPIRY=
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
 
 To understand the complete structure and flow of the project, you can view the full model diagram using the link below:
 
