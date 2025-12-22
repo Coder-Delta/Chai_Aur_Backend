@@ -22,6 +22,10 @@ REFRESH_TOKEN_EXPIRY=
 CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
+<br>
+After that run<br>
+docker run -it -p 3000:3000 --env-file .env coderdelta/videotube
+<br>
 
 To understand the complete structure and flow of the project, you can view the full model diagram using the link below:
 
