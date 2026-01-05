@@ -1,21 +1,19 @@
 # ---------- Build stage ----------
-FROM node:18-alpine AS build
+FROM node:16-alpine AS build
 
-WORKDIR /app
+WORKDIR /Videotube
 
 COPY package*.json ./
-RUN npm install --production
+RUN npm install
 
 COPY . .
 
 # ---------- Runtime stage ----------
-FROM node:18-alpine AS runner
+FROM node:16-alpine AS runner
 
-WORKDIR /app
+WORKDIR /Videotube
 
-COPY --from=build /app .
+COPY --from=build /Videotube .
 
-ENV PORT=3000
-EXPOSE 3000
 
-CMD ["node", "index.js"]
+CMD ["npm", "run", "dev"]
