@@ -1,8 +1,12 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import { globalLimiter } from "./middlewares/ratelimit.middlewares.js"
 
 const app = express()
+
+app.set("trust proxy", 1);
+
 
 // ---------------------- CORS ----------------------
 // to use the middleware app.use() likhna parta hai (middleware ko activate karne ke liye)
@@ -32,6 +36,9 @@ app.use(express.static("public"))
 app.use(cookieParser())
 
 // app.get() me 4 components: err, req, res, next
+
+app.use(globalLimiter);
+
 
 
 

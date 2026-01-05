@@ -14,6 +14,7 @@ import {
 } from "../controllers/user.controllers.js";
 import { upload } from "../middlewares/multer.middlewares.js";
 import { verifyJWT } from "../middlewares/auth.middlewares.js";
+import { loginLimiter } from "../middlewares/loginLimiter.middlewares.js";
 
 const router = Router();
 
@@ -30,7 +31,7 @@ router.route("/register").post(
   ]),
   registerUser
 );
-router.route("/login").post(loginUser);
+router.route("/login").post(loginLimiter,loginUser);
 
 //secured routes
 router.route("/logout").post(verifyJWT, logoutUser); //verify is a middleware
