@@ -8,7 +8,7 @@ const healthcheck = asyncHandler(async (_, res) => {
     return res
     .status(200)
     .json(
-        new ApiResponse (200, {OK}, "Everything is ok")
+        new ApiResponse (200, {}, "Everything is ok")
     )
 })//complete
 
