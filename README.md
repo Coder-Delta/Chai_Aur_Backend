@@ -29,7 +29,7 @@ docker run -it -p 3000:3000 --env-file .env coderdelta/videotube
 
 To understand the complete structure and flow of the project, you can view the full model diagram using the link below:
 
-🔗 Model Diagram (Eraser Workspace)
+🔗 ### Model Diagram (Eraser Workspace)
 <h4> https://app.eraser.io/workspace/cVKAxuwbqqOZtOM0wwzX?origin=share</h4>
 
 This diagram includes:
