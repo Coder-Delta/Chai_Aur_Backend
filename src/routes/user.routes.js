@@ -7,6 +7,8 @@ import {
   changeCurrentPassword,
   getCurrentUser,
   updateAccountDetails,
+  updateUserAvatar,
+  updateUserCoverImage,
   getUserChannelProfile,
   getWatchHistory,
 } from "../controllers/user.controllers.js";
@@ -36,7 +38,7 @@ router.route("/logout").post(verifyJWT, logoutUser); //verify is a middleware
 router.route("/refresh-token").post(refereshAccessToken);
 router.route("/change-password").post(verifyJWT, changeCurrentPassword);
 router.route("/current-user").get(verifyJWT, getCurrentUser);
-router.route("/update-account").patch(verifyJWT, updateAccountDetails);
+router.route("/update-account").patch(verifyJWT, upload.single("avatar"), upload.single("coverImage"), updateAccountDetails);
 router.route("/c/:username").get(verifyJWT, getUserChannelProfile);
 router.route("/history").get(verifyJWT, getWatchHistory);
 
