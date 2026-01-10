@@ -29,14 +29,22 @@ router.route("/register").post(
   ]),
   registerUser
 );
-router.route("/login").post(loginLimiter,loginUser);
+router.route("/login").post(loginLimiter, loginUser);
 
 //secured routes
 router.route("/logout").post(verifyJWT, logoutUser); //verify is a middleware
 router.route("/refresh-token").post(refereshAccessToken);
 router.route("/change-password").post(verifyJWT, changeCurrentPassword);
 router.route("/current-user").get(verifyJWT, getCurrentUser);
-router.route("/update-account").patch(verifyJWT, upload.single("avatar"), upload.single("coverImage"), updateAccountDetails);
+router.route("/update-account").patch(
+  verifyJWT,
+  upload.fields([
+    { name: "avatar", maxCount: 1 },
+    { name: "coverImage", maxCount: 1 },
+  ]),
+  updateAccountDetails
+);
+
 router.route("/c/:username").get(verifyJWT, getUserChannelProfile);
 router.route("/history").get(verifyJWT, getWatchHistory);
 
