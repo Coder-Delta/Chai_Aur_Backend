@@ -269,81 +269,53 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 const updateAccountDetails = asyncHandler(async (req, res) => {
   const { fullName, email } = req.body;
 
-  if (!fullName || !email) {
-    throw new ApiError(new ApiResponse(404, {}, "All field are requird"));
+  // Build update object dynamically
+  const updateFields = {};
+
+  if (fullName) updateFields.fullName = fullName;
+  if (email) updateFields.email = email;
+
+  // Handle avatar upload
+  if (req.files?.avatar?.[0]?.path) {
+    const avatarUpload = await uploadOnCloudinary(
+      req.files.avatar[0].path
+    );
+
+    if (!avatarUpload?.url) {
+      throw new ApiError(500, "Error while uploading avatar");
+    }
+
+    updateFields.avatar = avatarUpload.url;
+  }
+
+  // Handle cover image upload
+  if (req.files?.coverImage?.[0]?.path) {
+    const coverUpload = await uploadOnCloudinary(
+      req.files.coverImage[0].path
+    );
+
+    if (!coverUpload?.url) {
+      throw new ApiError(500, "Error while uploading cover image");
+    }
+
+    updateFields.coverImage = coverUpload.url;
+  }
+
+  if (Object.keys(updateFields).length === 0) {
+    throw new ApiError(400, "Nothing to update");
   }
 
   const user = await User.findByIdAndUpdate(
     req.user?._id,
-    {
-      $set: {
-        fullName: fullName,
-        email: email,
-      },
-    },
-    { new: true }
-  ).select("-select");
-
-  return res
-    .status(200)
-    .json(new ApiResponse(200, user, "Account Details Update Successfully"));
-}); //Done
-
-const updateUserAvatar = asyncHandler(async (req, res) => {
-  const avatarLocalPath = req.file?.path;
-
-  if (!avatarLocalPath) {
-    throw new ApiError(400, "Avatar is missing");
-  }
-
-  const avatar = await uploadOnCloudinary(avatarLocalPath);
-
-  if (!avatar.url) {
-    throw new ApiError(500, "Error while uploading the avatar file");
-  }
-
-  const user = await User.findByIdAndUpdate(
-    req.user?._id,
-    {
-      $set: {
-        avatar: avatar.url,
-      },
-    },
-    { new: true }
-  ).select("-password");
-
-  return res
-    .status(200)
-    .json(new ApiResponse(200, user, "File update successfully"));
-}); //Done
-
-const updateUserCoverImage = asyncHandler(async (req, res) => {
-  const coverImageLocalPath = req.file?.path;
-
-  if (!coverImageLocalPath) {
-    throw new ApiError(400, "Coverimage is missing");
-  }
-
-  const coverImage = await uploadOnCloudinary(coverImageLocalPath);
-
-  if (!coverImage?.url) {
-    throw new ApiError(500, "Error while uploading the coverimage file");
-  }
-
-  const user = await User.findByIdAndUpdate(
-    req.user?._id,
-    {
-      $set: {
-        coverImage: coverImage.url,
-      },
-    },
+    { $set: updateFields },
     { new: true }
   ).select("-password");
 
-  return res
-    .status(200)
-    .json(new ApiResponse(200, user, "File update successfully"));
-}); //Done
+  return res.status(200).json(
+    new ApiResponse(200, user, "Account updated successfully")
+  );
+});
+
 
 //DELETE OLD IMAGE - ASSINGMENT
 //CHENNEL KE LIYA SUBSCRIBER
@@ -479,8 +451,6 @@ export {
   changeCurrentPassword,
   getCurrentUser,
   updateAccountDetails,
-  updateUserAvatar,
-  updateUserCoverImage,
   getUserChannelProfile,
   getWatchHistory,
 }; //import me me iss name se hi import kar sakta hu
