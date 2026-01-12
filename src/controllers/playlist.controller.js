@@ -9,7 +9,7 @@ const createPlaylist = asyncHandler(async (req, res) => {
   //TODO: create playlist
 
   if (!name || !description) {
-    throw new ApiError(404, "Name And Description Is Required!");
+    throw new ApiError(401, "Name And Description Is Required!");
   }
 
   const updatedPlaylist = await Playlist.create({
