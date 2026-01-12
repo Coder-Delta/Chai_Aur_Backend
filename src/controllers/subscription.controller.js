@@ -9,14 +9,17 @@ const toggleSubscription = asyncHandler(async (req, res) => {
   const { channelId } = req.params;
   const subscriberId = req.user._id;
 
-  const channel = await User.findById(channelId);
-
-  if (!channel) {
-    throw new ApiError(404, "Channel not found");
+  if (!isValidObjectId(channelId)) {
+    throw new ApiError(400, "Invalid channel id");
   }
 
-  if (channelId === subscriberId.toString()) {
-    throw new ApiError(403, "One cannot subscribe his own channel");
+  if (subscriberId.toString() === channelId) {
+    throw new ApiError(403, "One cannot subscribe to their own channel");
+  }
+
+  const channelExists = await User.exists({ _id: channelId });
+  if (!channelExists) {
+    throw new ApiError(404, "Channel not found");
   }
 
   const existingSubscription = await Subscription.findOne({
@@ -24,6 +27,7 @@ const toggleSubscription = asyncHandler(async (req, res) => {
     channel: channelId,
   });
 
+  // UNSUBSCRIBE
   if (existingSubscription) {
     await existingSubscription.deleteOne();
     return res
@@ -31,48 +35,48 @@ const toggleSubscription = asyncHandler(async (req, res) => {
       .json(new ApiResponse(200, {}, "Unsubscribed to this channel"));
   }
 
+  // SUBSCRIBE
   const subscription = await Subscription.create({
     subscriber: subscriberId,
     channel: channelId,
   });
 
-  const updatedSubscription = await subscription.populate([
+  const populatedSubscription = await subscription.populate([
     { path: "subscriber", select: "username avatar" },
     { path: "channel", select: "username avatar" },
   ]);
+
   return res
     .status(201)
     .json(
-      new ApiResponse(201, updatedSubscription, "Subscribed to this channel")
+      new ApiResponse(201, populatedSubscription, "Subscribed to this channel")
     );
-});//complete
-
+}); // complete
 
 // controller to return subscriber list of a channel
 const getUserChannelSubscribers = asyncHandler(async (req, res) => {
   const { channelId } = req.params;
-  // console.log(channelId);
 
-  const channel = await User.findById(channelId);
+  if (!isValidObjectId(channelId)) {
+    throw new ApiError(400, "Invalid channel id");
+  }
 
-  if (!channel) {
+  if (channelId !== req.user._id.toString()) {
+    throw new ApiError(403, "Permission Denied");
+  }
+
+  const channelExists = await User.exists({ _id: channelId });
+  if (!channelExists) {
     throw new ApiError(404, "Channel not found");
   }
 
-  if (!(channelId === req.user._id.toString())) {
-    throw new ApiError(403, "Permission Denied");
-  }
   const subscriptions = await Subscription.aggregate([
     {
       $match: {
         channel: new mongoose.Types.ObjectId(channelId),
       },
     },
-    {
-      $sort: {
-        createdAt: -1,
-      },
-    },
+    { $sort: { createdAt: -1 } },
     {
       $lookup: {
         from: "users",
@@ -92,13 +96,12 @@ const getUserChannelSubscribers = asyncHandler(async (req, res) => {
     },
     {
       $addFields: {
-        subscriber: {
-          $first: "$subscriber",
-        },
+        subscriber: { $first: "$subscriber" },
       },
     },
     {
       $project: {
+        _id: 0,
         subscriber: 1,
       },
     },
@@ -107,33 +110,34 @@ const getUserChannelSubscribers = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(200, subscriptions, "Subscribers fetched Successfully")
+      new ApiResponse(200, subscriptions, "Subscribers fetched successfully")
     );
-});//complete
+}); // complete
 
 // controller to return channel list to which user has subscribed
 const getSubscribedChannels = asyncHandler(async (req, res) => {
   const { subscriberId } = req.params;
-  const subscriber = await User.findById(subscriberId);
 
-  if (!subscriber) {
+  if (!isValidObjectId(subscriberId)) {
+    throw new ApiError(400, "Invalid subscriber id");
+  }
+
+  if (subscriberId !== req.user._id.toString()) {
+    throw new ApiError(403, "Permission Denied");
+  }
+
+  const subscriberExists = await User.exists({ _id: subscriberId });
+  if (!subscriberExists) {
     throw new ApiError(404, "Subscriber not found");
   }
 
-  if (!(subscriberId === req.user._id.toString())) {
-    throw new ApiError(403, "Permission Denied");
-  }
   const subscriptions = await Subscription.aggregate([
     {
       $match: {
         subscriber: new mongoose.Types.ObjectId(subscriberId),
       },
     },
-    {
-      $sort: {
-        createdAt: -1,
-      },
-    },
+    { $sort: { createdAt: -1 } },
     {
       $lookup: {
         from: "users",
@@ -153,13 +157,12 @@ const getSubscribedChannels = asyncHandler(async (req, res) => {
     },
     {
       $addFields: {
-        subscribedTo: {
-          $first: "$subscribedTo",
-        },
+        subscribedTo: { $first: "$subscribedTo" },
       },
     },
     {
       $project: {
+        _id: 0,
         subscribedTo: 1,
       },
     },
@@ -168,8 +171,16 @@ const getSubscribedChannels = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(
-      new ApiResponse(200, subscriptions, "Subscribed channels fetched Successfully")
+      new ApiResponse(
+        200,
+        subscriptions,
+        "Subscribed channels fetched successfully"
+      )
     );
-});//Done
+}); // Done
 
-export { toggleSubscription, getUserChannelSubscribers, getSubscribedChannels };
+export {
+  toggleSubscription,
+  getUserChannelSubscribers,
+  getSubscribedChannels,
+};
