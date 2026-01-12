@@ -121,22 +121,14 @@ const publishAVideo = asyncHandler(async (req, res) => {
 
 const getVideoById = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
-  //TODO: get video by id
-  // console.log(videoId)
-
-  if (!videoId?.trim()) {
-    throw new ApiError(404, "Video id is required!");
-  }
-
-  const video = await Video.findById(videoId);
-
+  const video = await Video.findById(videoId)
+    .populate('owner', 'username fullName avatar'); // ← ADD THIS LINE
   if (!video) {
-    throw new ApiError(500, " Something went wrong");
+    throw new ApiError(404, "Video not found");
   }
-
-  return res
-    .status(200)
-    .json(new ApiResponse(200, video, "Video feached successfully"));
+  return res.status(200).json(
+    new ApiResponse(200, video, "Video fetched successfully")
+  );
 }); //complete
 
 const updateVideo = asyncHandler(async (req, res) => {
