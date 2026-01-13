@@ -12,7 +12,7 @@ app.set("trust proxy", 1);
 // to use the middleware app.use() likhna parta hai (middleware ko activate karne ke liye)
 // CORS allow karta hai ki frontend backend ko access kare
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || process.env.CROS_ORIGIN, // both supported
+    origin: process.env.CORS_ORIGIN || "https://cholochitro-exe.onrender.com", // both supported
     credentials: true, // cookies, sessions allow
 }))
 
