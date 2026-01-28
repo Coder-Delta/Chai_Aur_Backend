@@ -1,33 +1,34 @@
+import jwt from "jsonwebtoken";
 import { ApiError } from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import jwt from "jsonwebtoken";
 import { User } from "../models/user.models.js";
 
-export const verifyJWT = asyncHandler(async (req, _, next) => {
-  //_ beacause no use of response for production grade code
+export const verifyJWT = asyncHandler(async (req, _res, next) => {
   try {
-    let token =
+    // 🔐 Token priority:
+    // 1. HttpOnly cookie (PROD)
+    // 2. Authorization header (Postman / fallback)
+    const token =
       req.cookies?.accessToken ||
-      req.header("Authorization")?.replace("Bearer", "");
+      req.headers.authorization?.replace("Bearer ", "");
 
     if (!token) {
-      throw new ApiError(401, "Unauthorized Request");
+      throw new ApiError(401, "Unauthorized – token missing");
     }
 
-    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    //verify the jwt token of user and database token
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
-    const user = await User.findById(decodedToken?._id).select(
+    const user = await User.findById(decoded._id).select(
       "-password -refreshToken"
-    ); //db call
+    );
 
     if (!user) {
-      throw new ApiError(401, "Invalid Access Token");
+      throw new ApiError(401, "Invalid access token");
     }
 
-    req.user = user; //add an  user to the request
+    req.user = user;
     next();
   } catch (error) {
-    throw new ApiError(401, error?.message || "Invalid Access Token");
+    throw new ApiError(401, error.message || "Invalid access token");
   }
 });
