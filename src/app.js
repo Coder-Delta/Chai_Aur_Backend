@@ -12,10 +12,17 @@ app.set("trust proxy", 1);
 // to use the middleware app.use() likhna parta hai (middleware ko activate karne ke liye)
 // CORS allow karta hai ki frontend backend ko access kare
 app.use(cors({
-    origin: process.env.CORS_ORIGIN, // both supported
-    credentials: true
-}));
+  origin: function (origin, callback) {
+    // allow server-to-server, Postman, curl
+    if (!origin) return callback(null, true);
 
+    // allow all origins dynamically
+    return callback(null, true);
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 
 // ---------------------- Middlewares ----------------------
