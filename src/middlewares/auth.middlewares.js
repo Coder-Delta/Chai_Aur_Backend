@@ -1,33 +1,43 @@
-import { ApiError } from "../utils/apiError.js";
-import { asyncHandler } from "../utils/asyncHandler.js";
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.models.js";
+import { ApiError } from "../utils/apiError.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
-export const verifyJWT = asyncHandler(async (req, _, next) => {
-  //_ beacause no use of response for production grade code
-  try {
-    let token =
-      req.cookies?.accessToken ||
-      req.header("Authorization")?.replace("Bearer", "");
+export const verifyJWT = asyncHandler(async (req, res, next) => {
+  let token;
 
-    if (!token) {
-      throw new ApiError(401, "Unauthorized Request");
-    }
-
-    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    //verify the jwt token of user and database token
-
-    const user = await User.findById(decodedToken?._id).select(
-      "-password -refreshToken"
-    ); //db call
-
-    if (!user) {
-      throw new ApiError(401, "Invalid Access Token");
-    }
-
-    req.user = user; //add an  user to the request
-    next();
-  } catch (error) {
-    throw new ApiError(401, error?.message || "Invalid Access Token");
+  // 1️⃣ Cookie (production)
+  if (req.cookies?.accessToken) {
+    token = req.cookies.accessToken;
   }
+
+  // 2️⃣ Authorization header (fallback)
+  if (!token && req.headers.authorization) {
+    const parts = req.headers.authorization.split(" ");
+    if (parts[0] === "Bearer" && parts[1]) {
+      token = parts[1];
+    }
+  }
+
+  if (!token) {
+    throw new ApiError(401, "Unauthorized – token missing");
+  }
+
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  } catch {
+    throw new ApiError(401, "Invalid or expired token");
+  }
+
+  const user = await User.findById(decoded._id).select(
+    "-password -refreshToken"
+  );
+
+  if (!user) {
+    throw new ApiError(401, "User not found");
+  }
+
+  req.user = user;
+  next();
 });
