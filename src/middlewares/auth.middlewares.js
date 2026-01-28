@@ -1,34 +1,43 @@
 import jwt from "jsonwebtoken";
+import { User } from "../models/user.models.js";
 import { ApiError } from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { User } from "../models/user.models.js";
 
-export const verifyJWT = asyncHandler(async (req, _res, next) => {
-  try {
-    // 🔐 Token priority:
-    // 1. HttpOnly cookie (PROD)
-    // 2. Authorization header (Postman / fallback)
-    const token =
-      req.cookies?.accessToken ||
-      req.headers.authorization?.replace("Bearer ", "");
+export const verifyJWT = asyncHandler(async (req, res, next) => {
+  let token;
 
-    if (!token) {
-      throw new ApiError(401, "Unauthorized – token missing");
-    }
-
-    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-
-    const user = await User.findById(decoded._id).select(
-      "-password -refreshToken"
-    );
-
-    if (!user) {
-      throw new ApiError(401, "Invalid access token");
-    }
-
-    req.user = user;
-    next();
-  } catch (error) {
-    throw new ApiError(401, error.message || "Invalid access token");
+  // 1️⃣ Cookie (production)
+  if (req.cookies?.accessToken) {
+    token = req.cookies.accessToken;
   }
+
+  // 2️⃣ Authorization header (fallback)
+  if (!token && req.headers.authorization) {
+    const parts = req.headers.authorization.split(" ");
+    if (parts[0] === "Bearer" && parts[1]) {
+      token = parts[1];
+    }
+  }
+
+  if (!token) {
+    throw new ApiError(401, "Unauthorized – token missing");
+  }
+
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+  } catch {
+    throw new ApiError(401, "Invalid or expired token");
+  }
+
+  const user = await User.findById(decoded._id).select(
+    "-password -refreshToken"
+  );
+
+  if (!user) {
+    throw new ApiError(401, "User not found");
+  }
+
+  req.user = user;
+  next();
 });
