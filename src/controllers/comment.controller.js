@@ -106,7 +106,7 @@ const updateComment = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Comment not found");
   }
 
-  // 🔐 owner check
+  // owner check
   if (comment.owner.toString() !== req.user._id.toString()) {
     throw new ApiError(403, "You are not allowed to edit this comment");
   }

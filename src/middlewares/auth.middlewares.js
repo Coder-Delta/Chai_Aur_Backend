@@ -6,12 +6,12 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 export const verifyJWT = asyncHandler(async (req, res, next) => {
   let token;
 
-  // 1️⃣ Cookie (production)
+  // Cookie (production)
   if (req.cookies?.accessToken) {
     token = req.cookies.accessToken;
   }
 
-  // 2️⃣ Authorization header (fallback)
+  // Authorization header (fallback)
   if (!token && req.headers.authorization) {
     const parts = req.headers.authorization.split(" ");
     if (parts[0] === "Bearer" && parts[1]) {
